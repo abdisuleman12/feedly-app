@@ -8,6 +8,20 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
+import firebase from 'firebase';
+
+var config = {
+  apiKey: "AIzaSyCyo-nkrvxWX-7NT3rW3z_hoDsH9OiFWtg",
+  authDomain: "feedlyapp-c9554.firebaseapp.com",
+  databaseURL: "https://feedlyapp-c9554.firebaseio.com",
+  projectId: "feedlyapp-c9554",
+  storageBucket: "feedlyapp-c9554.appspot.com",
+  messagingSenderId: "697162797324"
+};
+
+firebase.initializeApp(config)
+
+
 @NgModule({
   declarations: [
     MyApp,
