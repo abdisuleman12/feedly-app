@@ -20,7 +20,9 @@ export class SignupPage {
   signUp(){
     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
     .then((data) => {
+
       console.log(data)
+      
       let newUser: firebase.User = data.user
       newUser.updateProfile({
         displayName: this.name,
