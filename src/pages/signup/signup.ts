@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import firebase from 'firebase';
+import { FeedPage } from '../feed/feed';
 
 
 // @IonicPage() only needed if you have a sign up module page
@@ -44,6 +45,7 @@ export class SignupPage {
               // handler is a function that runs on button click
               handler: () => {
                 // navigate to the feeds page
+                this.navCtrl.setRoot(FeedPage)
               }
             }
           ]
