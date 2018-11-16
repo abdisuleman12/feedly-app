@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
 import firebase from 'firebase';
+import { FeedPage } from '../pages/feed/feed';
 
 var config = {
   apiKey: "AIzaSyCyo-nkrvxWX-7NT3rW3z_hoDsH9OiFWtg",
@@ -26,7 +27,8 @@ firebase.initializeApp(config)
   declarations: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
+    FeedPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ firebase.initializeApp(config)
   entryComponents: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
+    FeedPage
   ],
   providers: [
     StatusBar,
