@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 
 import firebase from 'firebase';
+import { FeedPage } from '../feed/feed';
 
 @Component({
   selector: 'page-login',
@@ -25,6 +26,10 @@ export class LoginPage {
         message: "Welcome " + user.user.displayName,
         duration: 3000
       }).present();
+
+      //setRoot function resets the navigation stack and
+      //does not allow the user to navigate back to the previous page
+      this.navCtrl.setRoot(FeedPage)
       
     }).catch((err) => {
       this.toastCtrl.create({
