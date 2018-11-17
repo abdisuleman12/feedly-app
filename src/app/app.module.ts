@@ -7,9 +7,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { FeedPage } from '../pages/feed/feed';
 
 import firebase from 'firebase';
-import { FeedPage } from '../pages/feed/feed';
+
+import { Camera } from '@ionic-native/camera';
+
 
 var config = {
   apiKey: "AIzaSyCyo-nkrvxWX-7NT3rW3z_hoDsH9OiFWtg",
@@ -47,7 +50,8 @@ firebase.firestore().settings({
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Camera,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}
