@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, LoadingController } from 'io
 import firebase from 'firebase';
 import moment from 'moment';
 import { LoginPage } from '../login/login';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @Component({
   selector: 'page-feed',
@@ -20,7 +21,8 @@ export class FeedPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private camera: Camera
     ) {
     this.getPosts();
   }
@@ -150,8 +152,32 @@ export class FeedPage {
         message: " You have been logged out successfully.",
         duration: 3000
       }).present();
-      
+
       this.navCtrl.setRoot(LoginPage)
+    })
+  }
+
+  addPhoto(){
+    this.launchCamera();
+  }
+
+  launchCamera(){
+    let options: CameraOptions = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      targetHeight: 512,
+      targetWidth: 512,
+      allowEdit: true
+    }
+
+    this.camera.getPicture(options).then((base64Image) => {
+      console.log(base64Image)
+    }).catch((err) => {
+      console.log(err)
     })
   }
 
