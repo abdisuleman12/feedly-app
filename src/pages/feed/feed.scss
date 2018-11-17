@@ -12,11 +12,11 @@ page-feed {
         }
     }
 
-    .bottom-bar {
-        background-color: map-get($colors, semi-light );
+    .bottom-bar{
+        background-color: map-get($colors , semi-light);
 
         .border-right {
-            border-right: 1px solid map-get($colors, light )
+            border-right: 1px solid map-get($colors, light );
         }
     }
 
