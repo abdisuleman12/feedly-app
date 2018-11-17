@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import firebase from 'firebase';
+import moment from 'moment';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class FeedPage {
 
     this.posts = [];
 
-    firebase.firestore().collection("posts").get()
+    firebase.firestore().collection("posts").orderBy("created", "desc").get()
     .then((docs) => {
 
       docs.forEach((doc) => {
@@ -54,6 +55,14 @@ export class FeedPage {
       console.log(err);
       
     })
+  }
+
+  ago(time) { 
+    //converts time param into moment object and can use diff function
+    //calculate the time difference with reference to 
+    //current time in moment is moment as a function 
+    let difference = moment(time).diff(moment());
+    return moment.duration(difference).humanize();
   }
 
 }
