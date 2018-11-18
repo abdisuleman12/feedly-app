@@ -16,6 +16,7 @@ export class FeedPage {
   pageSize: number = 10;
   cursor: any;
   infiniteEvent: any;
+  image: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -176,9 +177,21 @@ export class FeedPage {
 
     this.camera.getPicture(options).then((base64Image) => {
       console.log(base64Image)
+
+      this.image = "data:image/png;base64," + base64Image;
+
     }).catch((err) => {
       console.log(err)
     })
   }
+
+  upload(name: string){
+    let ref = firebase.storage().ref("postImages/" + name)
+
+    let uploadTask = ref.putString(this.image.split(',')[1], "base64")
+
+    uploadTask.on()
+  }
+
 
 }
