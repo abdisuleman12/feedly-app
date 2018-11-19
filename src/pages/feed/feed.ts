@@ -127,6 +127,10 @@ export class FeedPage {
     }).then((doc) => {
       console.log(doc)
 
+      if(this.image){
+        this.upload(doc.id)
+      }
+
       this.text = "";
 
       let toast = this.toastCtrl.create({
@@ -186,11 +190,24 @@ export class FeedPage {
   }
 
   upload(name: string){
-    let ref = firebase.storage().ref("postImages/" + name)
 
-    let uploadTask = ref.putString(this.image.split(',')[1], "base64")
+    let ref = firebase.storage().ref("postImages/" + name);
 
-    uploadTask.on()
+    let uploadTask = ref.putString(this.image.split(',')[1], "base64");
+
+    uploadTask.on("state_changed", (taskSnapshot) => {
+      console.log(taskSnapshot)
+    }, (error) => {
+      console.log(error)
+    }, () =>{
+      console.log("The upload is complete!");
+
+      uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+        console.log(url);
+      })
+
+    })
+
   }
 
 
