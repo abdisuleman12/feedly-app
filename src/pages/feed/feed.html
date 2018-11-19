@@ -48,6 +48,8 @@
       <ion-item text-wrap>
         {{ post.data().text }}
       </ion-item>
+
+      <img [src]="post.data().image" *ngIf="post.data().image">
   
       <ion-row class="bottom-bar">
         <ion-col>

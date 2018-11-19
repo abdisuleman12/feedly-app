@@ -124,14 +124,15 @@ export class FeedPage {
       created: firebase.firestore.FieldValue.serverTimestamp(),
       owner: firebase.auth().currentUser.uid,
       owner_name: firebase.auth().currentUser.displayName
-    }).then((doc) => {
+    }).then(async (doc) => {
       console.log(doc)
 
       if(this.image){
-        this.upload(doc.id)
+        await this.upload(doc.id)
       }
 
       this.text = "";
+      this.image = undefined;
 
       let toast = this.toastCtrl.create({
         message: "Your post has been created successfully.",
@@ -191,21 +192,33 @@ export class FeedPage {
 
   upload(name: string){
 
-    let ref = firebase.storage().ref("postImages/" + name);
+    return new Promise ((reject, resolve) => {
+      let ref = firebase.storage().ref("postImages/" + name);
 
-    let uploadTask = ref.putString(this.image.split(',')[1], "base64");
+      let uploadTask = ref.putString(this.image.split(',')[1], "base64");
+  
+      uploadTask.on("state_changed", (taskSnapshot) => {
+        console.log(taskSnapshot)
+      }, (error) => {
+        console.log(error)
+      }, () =>{
+        console.log("The upload is complete!");
+  
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+          
+          firebase.firestore().collection("posts").doc(name).update({
+            image: url
+          }).then(() => {
+            resolve()
+          }).catch((err) => {
+            reject()
+          })
 
-    uploadTask.on("state_changed", (taskSnapshot) => {
-      console.log(taskSnapshot)
-    }, (error) => {
-      console.log(error)
-    }, () =>{
-      console.log("The upload is complete!");
-
-      uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-        console.log(url);
+        }).catch(() => {
+          reject()
+        })
+  
       })
-
     })
 
   }
